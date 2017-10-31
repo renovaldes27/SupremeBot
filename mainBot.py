@@ -1,6 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import re
 import time
+
 
 
 driver  = webdriver.Remote("http://127.0.0.1:9515",webdriver.DesiredCapabilities.CHROME)
@@ -24,7 +26,7 @@ while foundProduct != True:
             links.click()
 
 
-time.sleep(.2)
+time.sleep(.25)
 # Found our product so go to the products purchase page
 wrap = driver.find_element_by_id('wrap')
 cart_addf = wrap.find_element_by_id('cart-addf')
@@ -46,7 +48,14 @@ driver.get("https://www.supremenewyork.com/checkout")
 check_out_form = driver.find_element_by_id('checkout_form')
 
 
-inputFields = check_out_form.find_elements_by_class_name('input')
+nameField = check_out_form.find_element_by_class_name('order_billing_name')
+nameField.click()
+nameField.send_keys("Test")
+
+
+
+#print(inputFields)
+
 
 
 
