@@ -11,8 +11,8 @@ driver.get(urlStart)
 
 regex = re.compile('Supreme.*Hanes.*Tees.*\nWhite')
 
-info = {'name': 'First Last', 'email':'mail@email.com', 'tel':'(520)-520-520', 'address':'1234 Test Ave',
-        'zip': '12345', 'city':'Ciudad', 'credit':'4567897612340697', 'cvv':'222'}
+info = {'name': 'First Last', 'email':'mail@email.com', 'tel':'(520)-520-5200', 'address':'1234 Test Ave',
+        'zip': '85719', 'city':'Ciudad', 'credit':'4567897612340697', 'cvv':'222'}
 
 foundProduct = False
 while foundProduct != True:
@@ -48,9 +48,27 @@ driver.get("https://www.supremenewyork.com/checkout")
 check_out_form = driver.find_element_by_id('checkout_form')
 
 
-nameField = check_out_form.find_element_by_class_name('order_billing_name')
-nameField.click()
-nameField.send_keys("Test")
+nameField = check_out_form.find_element_by_id('order_billing_name')
+nameField.send_keys(info['name'])
+
+emailField = check_out_form.find_element_by_id('order_email')
+emailField.send_keys(info['email'])
+
+phoneField = check_out_form.find_element_by_id('order_tel')
+phoneField.send_keys(info['tel'])
+
+addressField = check_out_form.find_element_by_id('bo')
+addressField.send_keys(info['address'])
+
+zipField = check_out_form.find_element_by_id('order_billing_zip')
+zipField.send_keys(info['zip'])
+
+cardField = check_out_form.find_element_by_id('nnaerb')
+
+# When sending credit card info as a single string only partial digits were being saved.
+# Sending each key as a single value fixes this issue
+for num in info['credit']:
+    cardField.send_keys(num)
 
 
 
